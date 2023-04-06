@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %} Search {% endblock %}
+
+{% block content %}
+    {% for student in allstudents %}
+        <p>{{ student }}</p>
+    {% endfor %}
+
+{% endblock %}

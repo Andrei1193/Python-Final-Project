@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %} List of teachers {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for teacher in all_teachers %}
+                <div class="col-md-3">
+
+                    <div class="card">
+                        {% if teacher.image %}
+                            <img src="{{ teacher.image.url }}" class="card-img-top" alt="..." height="200">
+                        {% else %}
+                            <img height="200"
+                                 src="https://deliamuresan.ro/wp-content/uploads/2020/10/default-user-image.png"
+                                 class="card-img-top" alt="...">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ teacher.first_name }} {{ teacher.last_name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ teacher.course }}</h6>
+                            <p class="card-text">{{ teacher.education_level }} </br>{{ teacher.email }} </br> {{ teacher.phone_number }} </p>
+{#                            {% if perms.teacher.update_teacher %}#}
+                                <a href="{% url 'update_teacher' teacher.id %}" class="btn btn-outline-dark">Update</a>
+{#                            {% endif %}#}
+{#                            {% if perms.teacher.delete_teacher %}#}
+                                <a href="{% url 'delete_teacher' teacher.id %}"
+                                   class="btn btn-outline-danger">Delete</a>
+{#                            {% endif %}#}
+                            <!-- Button trigger modal -->
+{#                            {% if perms.teacher.disable_teacher %}#}
+                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                                        data-bs-target="#teacher_{{ teacher.id }}">
+                                    Inactivate
+                                </button>
+{#                            {% endif %}#}
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="teacher_{{ teacher.id }}" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Inactivate</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to inactivate {{ teacher.first_name }} {{ teacher.last_name }}?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    No
+                                </button>
+                                <a href="{% url 'inactivate_teacher' teacher.id %}" class="btn btn-danger">Yes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

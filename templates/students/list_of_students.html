@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} List of students {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for student in all_students %}
+                <div class="col-md-3">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ student.first_name }} {{ student.last_name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ student.current_class }}</h6>
+                            <p class="card-text">{{ student.gender }} </br>{{ student.email }} </br> {{ student.student_id }} </p>
+{#                            {% if perms.student.update_student %}#}
+                                <a href="{% url 'update_student' student.id %}" class="btn btn-outline-dark">Update</a>
+{#                            {% endif %}#}
+{#                            {% if perms.student.delete_student %}#}
+                                <a href="{% url 'delete_student' student.id %}"
+                                   class="btn btn-outline-danger">Delete</a>
+{#                            {% endif %}#}
+                            <!-- Button trigger modal -->
+{#                            {% if perms.trainer.disable_trainer %}#}
+                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                                        data-bs-target="#teacher_{{ student.id }}">
+                                    Inactivate
+                                </button>
+{#                            {% endif %}#}
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="teacher_{{ student.id }}" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Inactivate</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to inactivate {{ student.first_name }} {{ student.last_name }}?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    No
+                                </button>
+                                <a href="{% url 'inactivate_student' student.id %}" class="btn btn-danger">Yes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

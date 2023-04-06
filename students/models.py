@@ -1,13 +1,9 @@
 from django.db import models
-from teacher.models import Teacher
+from headmaster.models import Classroom
 
 # Create your models here.
 
-class Classroom(models.Model):
-    classroom_name = models.CharField(max_length=20)
 
-    def __str__(self):
-        return self.classroom_name
 
 
 class Student(models.Model):
@@ -21,7 +17,6 @@ class Student(models.Model):
     email = models.EmailField(max_length=80)
     description = models.CharField(max_length=500)
     gender = models.CharField(max_length=10, choices=gender_options)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True)
     current_class = models.ForeignKey(Classroom, on_delete=models.CASCADE, null=True)
 
     active = models.BooleanField(default=True)

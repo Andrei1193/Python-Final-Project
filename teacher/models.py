@@ -11,8 +11,10 @@ class Teacher(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=80)
+    phone_number = models.CharField(max_length=14)
     education_level = models.CharField(max_length=50, choices=school_level)
     course = models.CharField(max_length=50, choices=school_subject)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
     active = models.BooleanField(default=True)
 

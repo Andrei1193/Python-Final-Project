@@ -1,0 +1,5 @@
+from students.models import Student
+
+
+def get_all_students(request):
+    return {'students': Student.objects.filter(active=True)}
