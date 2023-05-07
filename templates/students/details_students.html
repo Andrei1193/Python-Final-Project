@@ -16,6 +16,7 @@
 {#                        <p class="card-text">Age : {{ student.age }}</p>#}
                         <p class="card-text">Email : {{ student.email }}</p>
                         <p class="card-text">Description : {{ student.description }}</p>
+                        <p class="card-text">Classroom : {{ student.current_class }}</p>
                         <p class="card-text">Created_at : {{ student.created_at|date:'d-m-Y H:i:s' }}</p>
                         <p class="card-text">Updated_at : {{ student.updated_at|date:'d-m-Y H:i:s' }}</p>
                         <a href="{% url 'list_of_students' %}" class="btn btn-primary">Cancel</a>

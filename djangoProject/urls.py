@@ -21,6 +21,7 @@ from django.contrib.auth import views
 
 from django.urls import path, include
 
+from userextend.forms import AuthenticationNewForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,11 @@ urlpatterns = [
     path('', include('students.urls')),
     path('', include('teacher.urls')),
     path('', include('headmaster.urls')),
+
+    path("login/", views.LoginView.as_view(form_class=AuthenticationNewForm), name="login"),
+
+    path('', include('django.contrib.auth.urls')),
+    path('', include('userextend.urls')),
 ]
 
 

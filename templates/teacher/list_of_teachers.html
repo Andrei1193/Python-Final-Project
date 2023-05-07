@@ -20,20 +20,20 @@
                             <h5 class="card-title">{{ teacher.first_name }} {{ teacher.last_name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ teacher.course }}</h6>
                             <p class="card-text">{{ teacher.education_level }} </br>{{ teacher.email }} </br> {{ teacher.phone_number }} </p>
-{#                            {% if perms.teacher.update_teacher %}#}
+                            {% if perms.teacher.update_teacher %}
                                 <a href="{% url 'update_teacher' teacher.id %}" class="btn btn-outline-dark">Update</a>
-{#                            {% endif %}#}
-{#                            {% if perms.teacher.delete_teacher %}#}
+                            {% endif %}
+                            {% if perms.teacher.delete_teacher %}
                                 <a href="{% url 'delete_teacher' teacher.id %}"
                                    class="btn btn-outline-danger">Delete</a>
-{#                            {% endif %}#}
+                            {% endif %}
                             <!-- Button trigger modal -->
-{#                            {% if perms.teacher.disable_teacher %}#}
+                            {% if perms.teacher.disable_teacher %}
                                 <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
                                         data-bs-target="#teacher_{{ teacher.id }}">
                                     Inactivate
                                 </button>
-{#                            {% endif %}#}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

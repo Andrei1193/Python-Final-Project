@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} List of homeworks {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for homework in all_homeworks %}
+                <div class="col-md-3">
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ homework.homework_title }}</h5>
+                            <p class="card-text">{{ homework.homework_description }} </br>{{ homework.due_date }} </br> {{ homework.discipline }} </p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

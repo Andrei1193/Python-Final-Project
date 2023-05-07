@@ -13,25 +13,38 @@
                             <h5 class="card-title">{{ student.first_name }} {{ student.last_name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ student.current_class }}</h6>
                             <p class="card-text">{{ student.gender }} </br>{{ student.email }} </br> {{ student.student_id }} </p>
-{#                            {% if perms.student.update_student %}#}
-                                <a href="{% url 'update_student' student.id %}" class="btn btn-outline-dark">Update</a>
-{#                            {% endif %}#}
-{#                            {% if perms.student.delete_student %}#}
-                                <a href="{% url 'delete_student' student.id %}"
-                                   class="btn btn-outline-danger">Delete</a>
-{#                            {% endif %}#}
-                            <!-- Button trigger modal -->
-{#                            {% if perms.trainer.disable_trainer %}#}
-                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                        data-bs-target="#teacher_{{ student.id }}">
-                                    Inactivate
-                                </button>
-{#                            {% endif %}#}
+                            <a href="{% url 'details_students' student.id %}" class="btn btn-outline-dark">Details</a>
+
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    More actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% if perms.student.update_student %}
+                                        <li><a class="dropdown-item" href="{% url 'update_student' student.id %}"
+                                               class="btn btn-outline-dark">Update</a></li>
+                                    {% endif %}
+                                    {% if perms.student.delete_student %}
+                                        <li><a class="dropdown-item" href="{% url 'delete_student' student.id %}"
+                                               class="btn btn-outline-danger">Delete</a></li>
+                                    {% endif %}
+                                    <!-- Button trigger modal -->
+                                    {% if perms.student.disable_student %}
+                                        <li>
+                                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#student_{{ student.id }}">
+                                                Inactivate
+                                            </button>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="teacher_{{ student.id }}" data-bs-backdrop="static"
+                <div class="modal fade" id="student_{{ student.id }}" data-bs-backdrop="static"
                      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">

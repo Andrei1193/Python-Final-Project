@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'students',
     'teacher',
     'headmaster',
+    'userextend',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,21 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# SMTP - SIMPLE MAIL TRANSFER PROTOCOL
+# SMTP - protocol pt trimiterea de mail-uri
+
+EMAIL_HOST = 'mail.horiascurtu.ro'
+EMAIL_HOST_USER = 'group_ro35@horiascurtu.ro'
+EMAIL_HOST_PASSWORD = 'Django1234!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# TLS - TRANSPORT LAYER SECURITY -> PROTOCOL CRIPTOGRAFIC PENTRU A PERMITE COMUNICATII SIGURE CAND SE TRIMIT MAIL-URILE

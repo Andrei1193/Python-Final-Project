@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} List of homeworks {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for homework in all_homeworks %}
+                <div class="col-md-3">
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ homework.homework_title }}</h5>
+                            <p class="card-text">{{ homework.homework_description }} </br>{{ homework.due_date }} </br> {{ homework.discipline }} </p>
+                            {% if perms.teacher.update_homework %}
+                                <a href="{% url 'update_homework' homework.id %}"
+                                   class="btn btn-outline-dark">Update</a>
+                            {% endif %}
+                            {% if perms.teacher.delete_homework %}
+                                <a href="{% url 'delete_homework' homework.id %}"
+                                   class="btn btn-outline-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+.images {
+  width: 100vw;
+  display: flex;
+}
+.image {
+  display: block;
+  width: 10%;
+  padding-top: 50px;
+  background-size: cover;
+  position: center;
+}

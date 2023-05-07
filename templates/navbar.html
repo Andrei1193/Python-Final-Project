@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'homepage' %}">
             {% load static %}
-            <img src="{% static 'images/logo.png' %}" alt="Proschool">
+            <img src="{% static 'images/logo.png' %}" alt="Proschool" , width="150">
 
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -14,58 +14,104 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'homepage' %}">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Teachers
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'list_of_teachers' %}">List of teachers</a></li>
-                            <li><a class="dropdown-item" href="{% url 'create_teacher' %}">Create teacher</a></li>
-                        </ul>
-                    </li>
-                <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Students
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'list_of_students' %}">List of students</a></li>
-                            <li><a class="dropdown-item" href="{% url 'create_student' %}">Create student</a></li>
-                        </ul>
-                    </li>
-                <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Classrooms
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'list_of_classrooms' %}">List of classrooms</a></li>
-                            <li><a class="dropdown-item" href="{% url 'create_classroom' %}">Create classroom</a></li>
-                        </ul>
-                    </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
+                {% if user.is_authenticated %}
+                    {% if perms.teacher.add_teacher or perms.teacher.view_list_of_teachers or perms.teacher.create_homework or perms.teacher.view_list_of_homeworks %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Teachers
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if perms.teacher.view_list_of_teachers %}
+                                    <li><a class="dropdown-item" href="{% url 'list_of_teachers' %}">List of
+                                        teachers</a></li>
+                                {% endif %}
+                                {% if perms.teacher.add_teacher %}
+                                    <li><a class="dropdown-item" href="{% url 'create_teacher' %}">Create teacher</a>
+                                    </li>
+                                {% endif %}
+                                {% if perms.teacher.create_homework %}
+                                    <li><a class="dropdown-item" href="{% url 'create_homework' %}">Create homework</a>
+                                    </li>
+                                {% endif %}
+                                {% if perms.teacher.view_list_of_homeworks %}
+                                    <li><a class="dropdown-item" href="{% url 'list_of_homeworks' %}">List of
+                                        Homeworks</a></li>
+                                {% endif %}
+                            </ul>
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
+                    {% endif %}
+
+                    {% if perms.students.add_student or perms.students.view_list_of_students or perms.students.view_list_of_homeworks %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Students
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if perms.students.view_list_of_students %}
+                                    <li><a class="dropdown-item" href="{% url 'list_of_students' %}">List of
+                                        students</a></li>
+                                {% endif %}
+                                {% if perms.students.add_student %}
+                                    <li><a class="dropdown-item" href="{% url 'create_student' %}">Create student</a>
+                                    </li>
+                                {% endif %}
+                                {% if perms.students.view_list_of_homeworks %}
+                                    <li><a class="dropdown-item" href="{% url 'student_homework_list' %}">Homeworks</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if perms.headmaster.view_list_of_classrooms or perms.headmaster.add_classroom %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Classrooms
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if perms.headmaster.view_list_of_classrooms %}
+                                    <li><a class="dropdown-item" href="{% url 'list_of_classrooms' %}">List of
+                                        classrooms</a>
+                                    </li>
+                                {% endif %}
+                                {% if perms.headmaster.add_classroom %}
+                                    <li><a class="dropdown-item" href="{% url 'create_classroom' %}">Create
+                                        classroom</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endif %}
+
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        My profile, {{ user.username }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'password_change' %}">Change password</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                    </ul>
+                </div>
+
+                {% if perms.students.search_student %}
+                <form method="get" class="d-flex" role="search" action="{% url 'search' %}">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                           aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                    {% endif %}
+            {% else %}
+                <div>
+                    <a href="{% url 'login' %}" class="btn btn-outline-dark">Login</a>
+                    <a href="{% url 'create_user' %}" class="btn btn-outline-danger">Sign up</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </nav>
